@@ -2,11 +2,10 @@
   "name": "content-edible",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "stylus": "~0.42.2",
-    "nib": "~1.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "stylus": "~0.42.2",
+    "nib": "~1.0.2",
     "mocha": "~1.17.1",
     "chai": "~1.9.0",
     "gulp": "~3.5.2",
@@ -19,8 +18,5 @@
     "jshint-stylish": "~0.1.5",
     "gulp-clean": "~0.2.4",
     "gulp-bump": "~0.1.5"
-  },
-  "scripts": {
-    "start": "serve ."
   }
 }

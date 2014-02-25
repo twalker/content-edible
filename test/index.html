@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>content-edible</title>
+  <link rel="stylesheet" href="../dist/css/content-edible.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <script src="../bower_components/requirejs/require.js"></script>
+  <script>
+  require(['../src/js/content-edible'], function(edible){
+    var ce = edible(document.querySelector('.content-edible'));
+    console.log('edible', ce);
+  });
+  </script>
+</head>
+<body>
+  <nav>
+    toolbar:
+    <a><i class="fa fa-bold"></i></a>
+    <a><i class="fa fa-italic"></i></a>
+  </nav>
+  <section class="content-edible">
+    <p>Content edible</p>
+  </section>
+</body>
+</html>
