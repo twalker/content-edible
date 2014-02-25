@@ -1,0 +1,26 @@
+{
+	"maxcomplexity": 5,
+  "asi": true,
+	"strict": false,
+	"maxstatements": 15,
+	"maxlen": 120,
+	"maxdepth": 4,
+	"maxparams": 4,
+	"indent": 2,
+	"smarttabs": true,
+	"laxcomma": true,
+	"immed" : true,
+	"newcap" : true,
+	"noarg" : true,
+	"sub" : true,
+	"undef" : true,
+	"boss" : true,
+	"eqnull" : true,
+	"camelcase": true,
+	"browser" : true,
+	"node": true,
+	"devel": true,
+	"globals": {
+		"define": true
+	}
+}
