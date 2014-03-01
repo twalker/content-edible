@@ -8,16 +8,37 @@
   <script src="../bower_components/requirejs/require.js"></script>
   <script>
   require(['../src/js/content-edible'], function(edible){
+    var onClick = function(e){
+      var target = e.currentTarget;
+      console.log('click', e.target, e.currentTarget.tagName)
+      if('a' === target.tagName.toLowerCase()){
+        e.preventDefault();
+        console.log('click', e, e.currentTarget.tagName)
+      }
+    };
+    document
+      .querySelector('.edible-toolbar')
+      .addEventListener('click', onClick);
+
     var ce = edible(document.querySelector('.content-edible'));
     console.log('edible', ce);
   });
   </script>
 </head>
 <body>
-  <nav>
-    toolbar:
-    <a><i class="fa fa-bold"></i></a>
-    <a><i class="fa fa-italic"></i></a>
+  toolbar:
+  <nav class="edible-toolbar">
+    <a data-cmd="bold"><i class="fa fa-bold"></i></a>
+    <a data-cmd="italic"><i class="fa fa-italic"></i></a>
+    <nav class="dropdown">
+      <a data-cmd="justifyLeft"><i class="fa fa-align-left"></i></a>
+      <a data-cmd="justifyCenter"><i class="fa fa-align-center"></i></a>
+      <a data-cmd="justifyFull"><i class="fa fa-align-justify"></i></a>
+      <a data-cmd="justifyRight"><i class="fa fa-align-right"></i></a>
+    </nav>
+    <a data-cmd="createLink"><i class="fa fa-link"></i></a>
+    <a data-cmd="unlink"><i class="fa fa-unlink"></i></a>
+    <a data-cmd="removeFormat">removeFormat</a>
   </nav>
   <section class="content-edible">
     <p>Content edible</p>

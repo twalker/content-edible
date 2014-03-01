@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
-    "requirejs": "2.1.10",
+    "requirejs": "2.1.11",
     "mocha": "~1.17.1",
     "chai": "1.9.0",
-    "sinonjs": "1.7.3"
+    "sinonjs": "1.8.2"
   }
 }

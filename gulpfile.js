@@ -43,5 +43,5 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', ['clean'], function(){
-  gulp.start('css', 'js', 'bump');
+  gulp.start('css', 'js');
 });

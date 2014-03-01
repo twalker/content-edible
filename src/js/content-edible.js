@@ -1,5 +1,7 @@
 /**
  * content-edible
+ * execCmd:
+ *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
  */
 define([], function(){
 
@@ -15,6 +17,9 @@ define([], function(){
       if (sel.getRangeAt && sel.rangeCount) {
         return sel.getRangeAt(0);
       }
+    },
+    enable: function(enable){
+      this.el.setAttribute('contenteditable', enable);
     },
     /*
     saveSelection: function(){
@@ -48,8 +53,12 @@ define([], function(){
 
   // constructor
   var edible = function edible(el){
-    var instance = Object.create(proto);
-    instance.el = el;
+    var instance = Object.create(proto, {
+      el: {value: el}
+    });
+    instance.enable(true);
+
+
     return instance;
   };
 
