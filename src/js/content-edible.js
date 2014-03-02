@@ -1,5 +1,6 @@
 /**
  * content-edible
+ * https://github.com/mindmup/bootstrap-wysiwyg
  * execCmd:
  *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
  */
@@ -11,24 +12,32 @@ define([], function(){
     },
 
     insert: function(){},
-    cmd: function(){},
+
+    cmd: function(cmd, val){
+      console.log('TODO: command', cmd, val);
+      //console.log('range', this.getCurrentRange());
+
+      document.execCommand(cmd, false, val || '')
+    },
+
     getCurrentRange: function (){
       var sel = window.getSelection();
       if (sel.getRangeAt && sel.rangeCount) {
         return sel.getRangeAt(0);
       }
     },
+
     enable: function(enable){
       this.el.setAttribute('contenteditable', enable);
     },
-    /*
+
     saveSelection: function(){
-      selectedRange = getCurrentRange();
+      this.selectedRange = this.getCurrentRange();
     },
 
     restoreSelection: function(){
       var selection = window.getSelection();
-      if (selectedRange) {
+      if (this.selectedRange) {
         try {
           selection.removeAllRanges();
         } catch (ex) {
@@ -36,19 +45,35 @@ define([], function(){
           document.selection.empty();
         }
 
-        selection.addRange(selectedRange);
+        selection.addRange(this.selectedRange);
       }
     },
 
     markSelection: function(input, color){
-      restoreSelection();
+      this.restoreSelection();
       if (document.queryCommandSupported('hiliteColor')) {
         document.execCommand('hiliteColor', 0, color || 'transparent');
       }
-      saveSelection();
-      input.data(options.selectionMarker, color);
+      this.saveSelection();
+      //input.data(options.selectionMarker, color);
     },
-    */
+
+    // hierachy of selected parents.
+    parents: function(){
+      var current = this.getCurrentRange();
+
+      var parents = [];
+      var parent = current.commonAncestorContainer.parentNode;//current.baseNode;
+      //console.log('parent', parent)
+      while(parent && parent !== this.el){
+        parents.push(parent);
+        parent = parent.parentNode;
+      }
+      return parents;
+    }
+
+
+
   };
 
   // constructor

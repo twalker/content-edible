@@ -7,21 +7,10 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <script src="../bower_components/requirejs/require.js"></script>
   <script>
-  require(['../src/js/content-edible'], function(edible){
-    var onClick = function(e){
-      var target = e.currentTarget;
-      console.log('click', e.target, e.currentTarget.tagName)
-      if('a' === target.tagName.toLowerCase()){
-        e.preventDefault();
-        console.log('click', e, e.currentTarget.tagName)
-      }
-    };
-    document
-      .querySelector('.edible-toolbar')
-      .addEventListener('click', onClick);
-
+  require(['../src/js/content-edible','../src/js/edible-toolbar'], function(edible, toolbar){
     var ce = edible(document.querySelector('.content-edible'));
-    console.log('edible', ce);
+    var toolbar = toolbar(document.querySelector('.edible-toolbar'), ce);
+
   });
   </script>
 </head>
@@ -36,12 +25,27 @@
       <a data-cmd="justifyFull"><i class="fa fa-align-justify"></i></a>
       <a data-cmd="justifyRight"><i class="fa fa-align-right"></i></a>
     </nav>
+    <nav class="dropdown">
+      <a data-cmd="formatBlock" data-val="h2">h2</a>
+      <a data-cmd="formatBlock" data-val="h3">h3</a>
+      <a data-cmd="formatBlock" data-val="h4">h4</a>
+      <a data-cmd="heading" data-val="h2">heading h2</a>
+    </nav>
+    <a data-cmd="insertParagraph">p</a>
+    <a data-cmd="insertOrderedList">ol</a>
+    <a data-cmd="insertUnorderedList">ul</a>
     <a data-cmd="createLink"><i class="fa fa-link"></i></a>
     <a data-cmd="unlink"><i class="fa fa-unlink"></i></a>
     <a data-cmd="removeFormat">removeFormat</a>
+    <a data-cmd="undo"><i class="fa fa-undo"></i></a>
+    <a data-cmd="redo"><i class="fa fa-repeat"></i></a>
   </nav>
+
   <section class="content-edible">
-    <p>Content edible</p>
+    <p>Content edible is a <a href="https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla">content editable</a></p>
   </section>
+  <nav>
+    todo > node > heirarchy
+  </nav>
 </body>
 </html>
