@@ -58,20 +58,33 @@ define([], function(){
       //input.data(options.selectionMarker, color);
     },
 
-    // hierachy of selected parents.
+    // hierarchy of parent nodes of selection.
     parents: function(){
       var current = this.getCurrentRange();
 
       var parents = [];
-      var parent = current.commonAncestorContainer.parentNode;//current.baseNode;
-      //console.log('parent', parent)
-      while(parent && parent !== this.el){
-        parents.push(parent);
-        parent = parent.parentNode;
+      if(current){
+        var parent = current.commonAncestorContainer;
+        // ensure we're starting with an ELEMENT_NODE
+        if(parent.nodeType !== 1) parent = parent.parentNode
+        //console.log('parent', parent)
+        while(parent && parent !== this.el){
+          parents.push(parent);
+          parent = parent.parentNode;
+        }
       }
       return parents;
-    }
+    },
 
+    selectElement: function(parent){
+      //console.log('select parent', parent)
+      var range = document.createRange();
+      range.selectNode(parent);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      this.saveSelection();
+    }
 
 
   };
@@ -82,7 +95,7 @@ define([], function(){
       el: {value: el}
     });
     instance.enable(true);
-
+    //instance.cmd('styleWithCSS', true);
 
     return instance;
   };

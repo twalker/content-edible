@@ -13,6 +13,22 @@ define([], function(){
         lnk.classList.toggle('active', document.queryCommandState(cmd));
       });
     },
+    updateParents: function(){
+      var edible = this.edible;
+      console.log('parents', edible.parents());
+      var parents = edible.parents().reverse();
+      var elParentNav = this.el.querySelector('.selected-parents');
+      elParentNav.innerHTML = '';
+      parents.forEach(function(p, i){
+        if(i > 0) elParentNav.appendChild(document.createTextNode(' > '));
+        var lnk = document.createElement('a');
+        lnk.innerText = p.tagName.toLowerCase();
+        lnk.onclick = edible.selectElement.bind(edible, p);
+        elParentNav.appendChild(lnk);
+      });
+
+    },
+
     onClick: function(e){
       //console.log('other click', e.target, e.currentTarget.tagName)
       //e.preventDefault();
@@ -32,7 +48,6 @@ define([], function(){
         this.edible.cmd(cmd, target.getAttribute('data-val') || '');
         this.updateActive();
         this.edible.saveSelection();
-        console.log('parents', this.edible.parents())
       }
     }
   };
@@ -48,11 +63,16 @@ define([], function(){
       lnk.setAttribute('tab-index', -1);
     });
     */
+
     el.addEventListener('click', instance.onClick.bind(instance));
+    var elParents = document.createElement('nav');
+    elParents.classList.add('selected-parents');
+    el.appendChild(elParents);
 
     var updateActive = function updateActive(){
       this.edible.saveSelection();
       this.updateActive();
+      this.updateParents();
     }.bind(instance)
     ce.el.addEventListener('mouseup', updateActive);
     ce.el.addEventListener('keyup', updateActive);
