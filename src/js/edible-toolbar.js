@@ -11,6 +11,8 @@ define([], function(){
       links.forEach(function(lnk){
         var cmd = lnk.getAttribute('data-cmd');
         lnk.classList.toggle('active', document.queryCommandState(cmd));
+        lnk.classList.toggle('supported', document.queryCommandSupported(cmd));
+
       });
     },
     updateParents: function(){

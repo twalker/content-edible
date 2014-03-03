@@ -4,6 +4,7 @@
   outline 1px solid fuchsia
 
 nav.edible-toolbar
+
   outline 1px solid #ccc
   a
     display inline-block
@@ -16,5 +17,12 @@ nav.edible-toolbar
     border 1px solid #cecece
     border-radius 4px
     &.active
-      background-color #cecece
+      background-color #000
       color #fff
+    &.supported
+      outline 1px solid fuchsia
+    &.disabled
+      color #cecece
+      pointer-events none
+  nav
+    display inline-block

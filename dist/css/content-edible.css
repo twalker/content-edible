@@ -17,6 +17,16 @@ nav.edible-toolbar a {
   border-radius: 4px;
 }
 nav.edible-toolbar a.active {
-  background-color: #cecece;
+  background-color: #000;
   color: #fff;
+}
+nav.edible-toolbar a.supported {
+  outline: 1px solid #f0f;
+}
+nav.edible-toolbar a.disabled {
+  color: #cecece;
+  pointer-events: none;
+}
+nav.edible-toolbar nav {
+  display: inline-block;
 }

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../dist/css/content-edible.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <script src="../bower_components/requirejs/require.js"></script>
+
   <script>
   require(['../src/js/content-edible','../src/js/edible-toolbar'], function(edible, toolbar){
     var ce = edible(document.querySelector('.content-edible'));
@@ -20,12 +21,14 @@
   <nav class="edible-toolbar">
     <a data-cmd="bold"><i class="fa fa-bold"></i></a>
     <a data-cmd="italic"><i class="fa fa-italic"></i></a>
+    <a data-toggle="dropdown" title="text alignment"><i class="fa fa-text-width"></i></a>
     <nav class="dropdown">
       <a data-cmd="justifyLeft"><i class="fa fa-align-left"></i></a>
       <a data-cmd="justifyCenter"><i class="fa fa-align-center"></i></a>
       <a data-cmd="justifyFull"><i class="fa fa-align-justify"></i></a>
       <a data-cmd="justifyRight"><i class="fa fa-align-right"></i></a>
     </nav>
+    <a data-toggle="dropdown" title="format block"><i class="fa fa-text-height"></i></a>
     <nav class="dropdown">
       <a data-cmd="formatBlock" data-val="h2">h2</a>
       <a data-cmd="formatBlock" data-val="h3">h3</a>
@@ -34,8 +37,8 @@
       <!--<a data-cmd="heading" data-val="h2">heading h2</a>-->
     </nav>
     <!--<a data-cmd="insertParagraph">p</a>-->
-    <a data-cmd="insertOrderedList">ol</a>
-    <a data-cmd="insertUnorderedList">ul</a>
+    <a data-cmd="insertOrderedList"><i class="fa fa-list-ol"></i></a>
+    <a data-cmd="insertUnorderedList"><i class="fa fa-list-ul"></i></a>
     <a data-cmd="createLink" data-val="http://www.theoatmeal.com"><i class="fa fa-link"></i></a>
     <a data-cmd="unlink"><i class="fa fa-unlink"></i></a>
     <a data-cmd="insertHTML" data-val="<p>hello html</p>">insertHTML</a>
@@ -43,7 +46,8 @@
     <a data-cmd="removeFormat">removeFormat</a>
     <a title="undo" data-cmd="undo"><i class="fa fa-undo"></i></a>
     <a title="redo" data-cmd="redo"><i class="fa fa-repeat"></i></a>
-    <a title="source">TODO: &lt;/&gt;</a>
+    <a title="source">TODO: <i class="fa fa-code"></i> <i class="fa fa-edit"></i></a>
+    <a data-cmd="insertImage" data-val="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Cats_eye.jpg/120px-Cats_eye.jpg"><i class="fa fa-picture-o"></i></a>
   </nav>
 
   <section class="content-edible">
