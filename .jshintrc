@@ -18,9 +18,14 @@
 	"eqnull" : true,
 	"camelcase": true,
 	"browser" : true,
-	"node": true,
+	"node": false,
 	"devel": true,
 	"globals": {
-		"define": true
+		"require": true,
+		"define": true,
+		"describe": true,
+		"it": true,
+		"beforeEach": true,
+		"afterEach": true
 	}
 }

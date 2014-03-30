@@ -13,13 +13,36 @@
  * TODO:
  *   - clean and document
  */
-define([], function(){
+// UMD's amdWeb pattern
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd){
+    // AMD. Register as an anonymous module.
+    define([], factory);
+  } else {
+    // Browser globals
+    root.contentEdible = factory();
+  }
+}(this, function(){
 
   var proto = {
 
-    // strip junky markup from browser. YAGNI?
-    cleanHtml: function(){
-      console.log('not yet implemented');
+    // calls to the browser's execCommand, returns success or failure.
+    cmd: function(cmd, val){
+      var success = document.execCommand(cmd, false, val || null);
+      console.log('command', cmd, val, success ? 'succeeded': 'failed');
+      return success;
+    },
+
+    // toggle whether or not the element is editable
+    enable: function(enable){
+      this.el.setAttribute('contenteditable', enable);
+      return this;
+    },
+
+    // give focus back to the element
+    focus: function(){
+      this.el.focus();
+      return this;
     },
 
     // get the html of the element
@@ -35,13 +58,6 @@ define([], function(){
       window.getSelection().removeAllRanges();
     },
 
-    // calls to the browser's execCommand, returns success or failure.
-    cmd: function(cmd, val){
-      var success = document.execCommand(cmd, false, val || null);
-      console.log('command', cmd, val, success ? 'succeeded': 'failed');
-      return success;
-    },
-
     // get the currently selected range
     getCurrentRange: function (){
       var sel = window.getSelection();
@@ -50,30 +66,10 @@ define([], function(){
       }
     },
 
-    // find the closest parent element of user selection
-    closestElement: function(){
-      var range = this.getCurrentRange(),
-        parent;
-      if(range){
-        parent = range.commonAncestorContainer;
-        if(parent.nodeType !== 1) parent = parent.parentNode;
-      }
-      return parent;
-    },
-
-    // make the element editable
-    enable: function(enable){
-      this.el.setAttribute('contenteditable', enable);
-    },
-
-    // give focus back to the element
-    focus: function(){
-      this.el.focus();
-    },
-
     // save the user selection
     saveSelection: function(){
       this.selectedRange = this.getCurrentRange();
+      return this;
     },
 
     // restore the user selection
@@ -89,17 +85,19 @@ define([], function(){
 
         selection.addRange(this.selectedRange);
       }
+      return this;
     },
-    /*
-    markSelection: function(input, color){
-      this.restoreSelection();
-      if (document.queryCommandSupported('hiliteColor')) {
-        document.execCommand('hiliteColor', 0, color || 'transparent');
+
+    // find the closest parent element of user selection
+    closestElement: function(){
+      var range = this.getCurrentRange(),
+        parent;
+      if(range){
+        parent = range.commonAncestorContainer;
+        if(parent.nodeType !== 1) parent = parent.parentNode;
       }
-      this.saveSelection();
-      //input.data(options.selectionMarker, color);
+      return parent;
     },
-    */
 
     // hierarchy of parent nodes of selection.
     parents: function(){
@@ -155,16 +153,14 @@ define([], function(){
       };
     }, proto);
 
-  // instance factory
-  var edible = function edible(el){
+  // return edible instance factory
+  return function edible(el){
     var instance = Object.create(proto, {
       el: {value: el}
     });
     instance.enable(true);
     //instance.cmd('styleWithCSS', true);
-
     return instance;
   };
 
-  return edible;
-});
+}));
