@@ -5,7 +5,6 @@
   "devDependencies": {
     "requirejs": "2.1.11",
     "mocha": "1.18.2",
-    "chai": "1.9.1",
-    "sinonjs": "1.9.0"
+    "chai": "1.9.1"
   }
 }

@@ -3,62 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>content-edible</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css">
-  <link rel="stylesheet" href="../dist/css/content-edible.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-  <script src="../bower_components/requirejs/require.js"></script>
-
-  <script>
-  require(['../src/js/content-edible','../src/js/edible-toolbar'], function(edible, toolbar){
-    var ce = window.edible = edible(document.querySelector('.content-edible'));
-    var toolbar = toolbar(document.querySelector('.edible-toolbar'), ce);
-
-  });
-  </script>
+  <link rel="stylesheet" href="../bower_components/mocha/mocha.css"/>
+  <script src="../bower_components/requirejs/require.js" data-main="content-edible"></script>
 </head>
 <body>
-  toolbar:
-  <nav class="edible-toolbar">
-    <a data-cmd="bold"><i class="fa fa-bold"></i></a>
-    <a data-cmd="italic"><i class="fa fa-italic"></i></a>
-    <a data-toggle="dropdown" title="text alignment"><i class="fa fa-text-width"></i></a>
-    <nav class="dropdown">
-      <a data-cmd="justifyLeft"><i class="fa fa-align-left"></i></a>
-      <a data-cmd="justifyCenter"><i class="fa fa-align-center"></i></a>
-      <a data-cmd="justifyFull"><i class="fa fa-align-justify"></i></a>
-      <a data-cmd="justifyRight"><i class="fa fa-align-right"></i></a>
-    </nav>
-    <a data-toggle="dropdown" title="format block"><i class="fa fa-text-height"></i></a>
-    <nav class="dropdown">
-      <a data-cmd="formatBlock" data-val="h2">h2</a>
-      <a data-cmd="formatBlock" data-val="h3">h3</a>
-      <a data-cmd="formatBlock" data-val="h4">h4</a>
-      <a data-cmd="formatBlock" data-val="p">p</a>
-      <!--<a data-cmd="heading" data-val="h2">heading h2</a>-->
-    </nav>
-    <!--<a data-cmd="insertParagraph">p</a>-->
-    <a data-cmd="insertOrderedList"><i class="fa fa-list-ol"></i></a>
-    <a data-cmd="insertUnorderedList"><i class="fa fa-list-ul"></i></a>
-    <a data-cmd="createLink" data-val="http://www.theoatmeal.com"><i class="fa fa-link"></i></a>
-    <a data-cmd="unlink"><i class="fa fa-unlink"></i></a>
-    <a data-cmd="insertHTML" data-val="<p>hello html</p>">insertHTML</a>
-    <a data-cmd="insertText" data-val="hello text">insertText</a>
-    <a data-cmd="removeFormat">removeFormat</a>
-    <a title="undo" data-cmd="undo"><i class="fa fa-undo"></i></a>
-    <a title="redo" data-cmd="redo"><i class="fa fa-repeat"></i></a>
-    <a title="source">TODO: <i class="fa fa-code"></i> <i class="fa fa-edit"></i></a>
-    <a data-cmd="insertImage" data-val="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Cats_eye.jpg/120px-Cats_eye.jpg"><i class="fa fa-picture-o"></i></a>
-  </nav>
-
-  <section class="content-edible">
-    <p>Content edible is a <a href="https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla">content editable</a></p>
-  </section>
-  <h3>TODOs</h3>
-  <form name="link">
-    <label>url<input type="url" /></label>
-  </form>
-  <form name="source">
-    <textarea name="source"></textarea>
-  </form>
+  <div id="mocha"></div>
 </body>
 </html>
