@@ -7,15 +7,14 @@ A lightly sweetened api for contentEditable's execCommand.
 ### Goals:
 
 - Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
-- Basic functionality for DIY WYSIWYG toolbar
+- Basic functionality to be controlled with a DIY WYSIWYG toolbar
 - No dependencies
 - Under 5k
 
 ### Why?
 
-There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. What worked best for me was a slightly more memorable way to use execCommand, and remembering to save/restore user selections. 
-
-Content editable is notoriously rough--both to develop, and for users to use. `content-edible` keeps it sane (or naive?), by calling native browser execCommands with flagrant disregard for browser descrepencies.
+There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I wanted a small module to make execCommand more memorable, and control it elsewhere.
+`content-edible` calls native browser execCommands with flagrant disregard for browser descrepencies.
 
 ## Install
 
@@ -64,10 +63,10 @@ el.addEventListener('input', function(e){
 - redo()
 - ... see unit tests or source for more.
 
-### Things to do when implementing a toolbar that uses edible.
+### Things to do when implementing a toolbar that uses edible:
 
 - Save/restore user selections when focus is lost.
-- focus on editable element before calling commands.
+- `focus` on editable element before calling commands.
 
 ---------------------
 TODO:
