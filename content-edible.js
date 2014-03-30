@@ -1,5 +1,8 @@
 /**
- * edible adds contentEditable behavior to an element
+ * content-edible
+ * https://github.com/twalker/content-edible
+ *
+ * A lightly sweetened api for contentEditable's execCommand.
  *
  * uses a subset of contenteditable API:
  *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
@@ -7,11 +10,6 @@
  * inspired by
  *   https://github.com/mindmup/bootstrap-wysiwyg
  *
- * execCmd:
- *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
- *
- * TODO:
- *   - clean and document
  */
 // UMD's amdWeb pattern
 (function (root, factory) {
@@ -150,29 +148,12 @@
     this[command] = this.cmd.bind(this, command);
   }, proto);
 
-  /*
-  // YAGNI?
-  // Convenience format block, or optionally insert a tag with text.
-  'p pre h4 h3 h2 h1'
-    .split(' ').forEach(function(tag){
-      // format methods. e.g. formatH1()
-      var capTag = tag.charAt(0).toUpperCase() + tag.slice(1)
-      this['format' + capTag] = this.cmd.bind(this, 'formatBlock', tag);
-      // insert methods. e.g. insertH1('hello world')
-      this['insert' + capTag] = function insertTag(text){
-        var el = document.createElement(tag);
-        el.textContent = text;
-        return this.cmd('insertHTML', el.outerHTML);
-      };
-    }, proto);
-  */
   // return edible instance factory
   return function edible(el){
     var instance = Object.create(proto, {
       el: {value: el}
     });
     instance.enable(true);
-    //instance.cmd('styleWithCSS', true);
     return instance;
   };
 
