@@ -16,14 +16,18 @@
 define([], function(){
 
   var proto = {
+
+    // strip junky markup from browser. YAGNI?
     cleanHtml: function(){
       console.log('not yet implemented');
     },
 
+    // get the html of the element
     getHtml: function(){
       return this.el.innerHTML;
     },
 
+    // replace the innerHTML of the element (maintains a history)
     replaceHtml: function(html){
       this.restoreSelection();
       this.cmd('selectAll');
@@ -31,12 +35,14 @@ define([], function(){
       window.getSelection().removeAllRanges();
     },
 
+    // calls to the browser's execCommand, returns success or failure.
     cmd: function(cmd, val){
       var success = document.execCommand(cmd, false, val || null);
       console.log('command', cmd, val, success ? 'succeeded': 'failed');
       return success;
     },
 
+    // get the currently selected range
     getCurrentRange: function (){
       var sel = window.getSelection();
       if (sel.getRangeAt && sel.rangeCount) {
@@ -44,6 +50,7 @@ define([], function(){
       }
     },
 
+    // find the closest parent element of user selection
     closestElement: function(){
       var range = this.getCurrentRange(),
         parent;
@@ -54,18 +61,22 @@ define([], function(){
       return parent;
     },
 
+    // make the element editable
     enable: function(enable){
       this.el.setAttribute('contenteditable', enable);
     },
 
+    // give focus back to the element
     focus: function(){
       this.el.focus();
     },
 
+    // save the user selection
     saveSelection: function(){
       this.selectedRange = this.getCurrentRange();
     },
 
+    // restore the user selection
     restoreSelection: function(){
       var selection = window.getSelection();
       if (this.selectedRange) {
@@ -107,6 +118,7 @@ define([], function(){
       return parents;
     },
 
+    // selects an element
     selectElement: function(el){
       var range = document.createRange();
       range.selectNode(el);
@@ -122,7 +134,8 @@ define([], function(){
   'fontName', 'fontSize', 'foreColor', 'hiliteColor', 'backColor',
   'justifyCenter', 'justifyFull', 'justifyLeft', 'justifyRight',
   'strikeThrough', 'subscript', 'superscript', 'underline',
-  'removeFormat', 'heading', 'formatBlock', 'indent', 'outdent', 'createLink', 'unlink', 'insertBrOnReturn', 'insertHorizontalRule', 'insertImage', 'insertOrderedList',
+  'removeFormat', 'heading', 'formatBlock', 'indent', 'outdent', 'createLink', 'unlink',
+  'insertBrOnReturn', 'insertHorizontalRule', 'insertImage', 'insertOrderedList',
   'insertUnorderedList', 'insertParagraph', 'insertText', 'insertHTML',
   'undo', 'redo', 'selectAll'].forEach(function(command){
     this[command] = this.cmd.bind(this, command);

@@ -1,24 +1,46 @@
 content-edible
 ==============
 
-Yet another wysiwyg editor using content-editable.
-
-Goals:
-
-- DIY toolbar
-- Expose an api for inserting at cursor position, or replacing selection
-- no bloat
-- No oldIE cruft
+A slightly sweetened api for contentEditable's execCommand.
 
 
----------------------
-### content-edible needs to provide:
+### Goals:
+
+- Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
+- Basic functionality for DIY UI
+- No dependencies
+- Under 5k
+
+### Why?
+
+There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. What worked best for me was a slightly more memorable way to use execCommand, and knowing when to save/restore user selections. 
+
+Content editable is notoriously rough--both to develop, and for users to use. `content-edible` keeps it sane (or naive, depending on your perspective), by calling native browser execCommands with disregard for browser descrepencies.
+
+## Install
+
+TODO: register with bower/component
+
+## API
+
+TODO: cherry pick some methods.
 
 - Bold
 - Italic
-- (un)Link
-- Tag insertion (H2-h4, lists)
+- (Un)Link
+- Tag insertion (h1-h4)
 - Text-align
-- Button (a.button)
-- Datafield
-- Possible additions: Color, image, social share stuff.
+- undo/redo
+
+
+## Example
+
+TODO: link to updated example.
+
+
+---------------------
+
+### TODO:
+
+- update toolbar and example
+- remove unneeded dependency
