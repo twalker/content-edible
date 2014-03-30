@@ -22,7 +22,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
   function createFixture(){
     var el = document.createElement('section');
     el.setAttribute('id', 'fixture');
-    el.innerHTML = '<h1>hello</h1><p>world</p>';
+    el.innerHTML = '<h1>hello</h1><p>world<i>!</i></p>';
     document.body.appendChild(el);
   }
 
@@ -109,20 +109,34 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    describe.skip('.cmdEnabled(cmd)', function(){
+    describe('.cmdEnabled(cmd)', function(){
       // whether or not the formating command can be executed on the current range.
       it('should be a convenient way to call document.queryCommandEnabled(String command)', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget);
+
+        assert.isFalse(edible.cmdEnabled('bold'));
+        edible.focus();
+        assert.isTrue(edible.cmdEnabled('bold'));
 
       });
     });
 
-    describe.skip('.cmdState(cmd)', function(){
+    describe('.cmdState(cmd)', function(){
       // whether or not the formating command has been executed on the current range (i.e. active)
       it('should be a convenient way to call document.queryCommandState(String command)', function(){
 
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget);
+
+        edible.selectElement(elTarget.querySelector('p'));
+
+        assert.isFalse(edible.cmdState('bold'));
+        edible.bold();
+        assert.isTrue(edible.cmdState('bold'));
+
       });
     });
-
 
     describe.skip('.focus()', function(){
       it('should focus on the element', function(){
@@ -149,8 +163,6 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    // skipping getCurrentRange, saveSelection, restoreSelection, closestElement, parents,selectElement
-    //
     describe.skip('.getCurrentRange()', function(){
       it('should return the range that is currently selected by the user', function(){
         var elTarget = getFixture();
@@ -178,24 +190,33 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    describe.skip('.closestElement()', function(){
+    describe('.closestElement()', function(){
       it('should return the closest container element for the current range', function(){
         var elTarget = getFixture();
         var edible = contentEdible(elTarget).focus();
-
-        assert.isTrue(true);
+        edible.selectElement(elTarget.querySelector('i'));
+        assert.equal(edible.closestElement(), elTarget.querySelector('i'));
       });
     });
 
-    describe.skip('.parents()', function(){
+    describe('.parents()', function(){
       it('should provide an ancestory of parent nodes for current range', function(){
-        assert.isTrue(true);
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        edible.selectElement(elTarget.querySelector('i'));
+
+        assert.isArray(edible.parents());
+        assert.deepEqual(edible.parents(), [elTarget.querySelector('i'), elTarget.querySelector('p')]);
       });
     });
 
-    describe.skip('.selectElement(el)', function(){
+    describe('.selectElement(el)', function(){
       it('should select a specified element', function(){
-        assert.isTrue(true);
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        edible.selectElement(elTarget.querySelector('h1'));
+
+        assert.equal(elTarget, edible.closestElement());
       });
     });
 

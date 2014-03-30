@@ -7,7 +7,7 @@ A lightly sweetened api for contentEditable's execCommand.
 ### Goals:
 
 - Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
-- Basic functionality to be controlled with a DIY WYSIWYG toolbar
+- Basic functionality to be controlled by a DIY WYSIWYG toolbar
 - No dependencies
 - Under 5k
 
