@@ -48,6 +48,19 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
 
     });
 
+    it('should have some chainable methods', function(){
+      var elTarget = getFixture();
+      var edible = contentEdible(elTarget);
+      assert.equal(
+        edible
+          .enable()
+          .focus()
+          .selectElement(elTarget.querySelector('h1'))
+          .saveSelection()
+          .restoreSelection(), edible);
+
+    });
+
     describe('.enable(enabled)', function(){
       it('should enable editing on an element', function(){
         var elTarget = getFixture();
@@ -63,6 +76,128 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
 
     });
 
+    describe('.cmd(value)', function(){
+      it('should excute contentEditable commands', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget);
+        elTarget.focus();
+        edible.cmd('insertText', 'foobar');
+        assert.include(elTarget.innerText, 'foobar');
+      });
+    });
+
+    describe('.[command]()', function(){
+      it('should provide convenence methods to execCommands (e.g. edible.insertText(text)', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget);
+
+        ['bold', 'italic', 'copy', 'cut', 'paste', 'delete', 'forwardDelete',
+        'fontName', 'fontSize', 'foreColor', 'hiliteColor', 'backColor',
+        'justifyCenter', 'justifyFull', 'justifyLeft', 'justifyRight',
+        'strikeThrough', 'subscript', 'superscript', 'underline',
+        'removeFormat', 'heading', 'formatBlock', 'indent', 'outdent', 'createLink', 'unlink',
+        'insertBrOnReturn', 'insertHorizontalRule', 'insertImage', 'insertOrderedList',
+        'insertUnorderedList', 'insertParagraph', 'insertText', 'insertHTML',
+        'undo', 'redo', 'selectAll']
+          .forEach(function(method){
+            assert.isFunction(edible[method]);
+          }, edible);
+
+        elTarget.focus();
+        edible.insertText('foobar');
+        assert.include(elTarget.innerText, 'foobar');
+      });
+    });
+
+    describe.skip('.cmdEnabled(cmd)', function(){
+      // whether or not the formating command can be executed on the current range.
+      it('should be a convenient way to call document.queryCommandEnabled(String command)', function(){
+
+      });
+    });
+
+    describe.skip('.cmdState(cmd)', function(){
+      // whether or not the formating command has been executed on the current range (i.e. active)
+      it('should be a convenient way to call document.queryCommandState(String command)', function(){
+
+      });
+    });
+
+
+    describe.skip('.focus()', function(){
+      it('should focus on the element', function(){
+        assert.isTrue(true)
+      });
+    });
+
+    describe('.getHtml()', function(){
+      it('should get the innerHTML of the element', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget);
+        assert.equal(edible.getHtml(), elTarget.innerHTML);
+      });
+    });
+
+    describe('.replaceHtml(html)', function(){
+      it('should replace the innerHTML of the element (maintains a history)', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget)
+          .focus();
+        var html = '<h2>replaced!</h2>';
+        edible.replaceHtml(html)
+        assert.equal(edible.getHtml(), html);
+      });
+    });
+
+    // skipping getCurrentRange, saveSelection, restoreSelection, closestElement, parents,selectElement
+    //
+    describe.skip('.getCurrentRange()', function(){
+      it('should return the range that is currently selected by the user', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+
+        assert.isTrue(true);
+      });
+    });
+
+    describe.skip('.saveSelection()', function(){
+      it('should save the user\'s selection', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+
+        assert.isTrue(true);
+      });
+    });
+
+    describe.skip('.restoreSelection()', function(){
+      it('should restore the user\'s selection', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+
+        assert.isTrue(true);
+      });
+    });
+
+    describe.skip('.closestElement()', function(){
+      it('should return the closest container element for the current range', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+
+        assert.isTrue(true);
+      });
+    });
+
+    describe.skip('.parents()', function(){
+      it('should provide an ancestory of parent nodes for current range', function(){
+        assert.isTrue(true);
+      });
+    });
+
+    describe.skip('.selectElement(el)', function(){
+      it('should select a specified element', function(){
+        assert.isTrue(true);
+      });
+    });
 
   });
 

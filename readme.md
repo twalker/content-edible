@@ -13,37 +13,68 @@ A lightly sweetened api for contentEditable's execCommand.
 
 ### Why?
 
-There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. What worked best for me was a slightly more memorable way to use execCommand, and knowing when to save/restore user selections. 
+There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. What worked best for me was a slightly more memorable way to use execCommand, and remembering to save/restore user selections. 
 
-Content editable is notoriously rough--both to develop, and for users to use. `content-edible` keeps it sane (or naive, depending on your perspective), by calling native browser execCommands with flagrant disregard for browser descrepencies.
+Content editable is notoriously rough--both to develop, and for users to use. `content-edible` keeps it sane (or naive?), by calling native browser execCommands with flagrant disregard for browser descrepencies.
 
 ## Install
 
 TODO: register with bower/component
 
-## API
-
-TODO: cherry pick some methods.
-
-- Bold
-- Italic
-- (Un)Link
-- Tag insertion (h1-h4)
-- Text-align
-- undo/redo
-
-### When to save/restore user selections
-
-TODO:
+content-edible can be used with AMD, or as a `contentEdible` global.
 
 ## Example
 
-TODO: link to updated example.
+```javascript
+var el = document.querySelector('.user-editable');
+var edible = contentEdible(el);
+
+// call command methods, typically in event handlers for a toolbar.
+btnBold.addEventListener('click', function(e){
+  e.preventDefault();
+  edible
+    // restore the selection if focus has been lost
+    .restoreSelection().focus();
+    // make the selection bold.
+    .bold();
+});
+
+btnHeading.addEventListener('click', function(e){
+  e.preventDefault();
+  edible.restoreSelection().focus()
+    // format selected as h2.
+    .formatBlock('h2');
+});
+
+// content change events can be handled natively
+el.addEventListener('input', function(e){
+  console.log('content changed', edible.getHtml())
+});
+
+```
+
+## API
+
+- enable(enabled)
+- cmd(value)
+- focus()
+- saveSelection()
+- restoreSelection()
+- undo()
+- redo()
+- ... see unit tests or source for more.
+
+### Things to do when implementing a toolbar that uses edible.
+
+- Save/restore user selections when focus is lost.
+- focus on editable element before calling commands.
+
+---------------------
+TODO:
+
+- finish unit tests. manually make range selections for selection related tests?
 
 
 ---------------------
 
-### TODO:
-
-- update toolbar and example
-- remove unneeded dependency
+MIT License

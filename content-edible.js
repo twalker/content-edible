@@ -33,6 +33,16 @@
       return success;
     },
 
+    // whether or not the formating command can be executed on the current range
+    cmdEnabled: function(cmd){
+      return document.queryCommandEnabled(cmd);
+    },
+
+    // whether or not the formating command has been executed on the current range (i.e. active)
+    cmdState: function(cmd){
+      return document.queryCommandState(cmd);
+    },
+
     // toggle whether or not the element is editable
     enable: function(enable){
       this.el.setAttribute('contenteditable', enable);
@@ -124,6 +134,7 @@
       sel.removeAllRanges();
       sel.addRange(range);
       this.saveSelection();
+      return this;
     }
   };
 
@@ -139,6 +150,8 @@
     this[command] = this.cmd.bind(this, command);
   }, proto);
 
+  /*
+  // YAGNI?
   // Convenience format block, or optionally insert a tag with text.
   'p pre h4 h3 h2 h1'
     .split(' ').forEach(function(tag){
@@ -152,7 +165,7 @@
         return this.cmd('insertHTML', el.outerHTML);
       };
     }, proto);
-
+  */
   // return edible instance factory
   return function edible(el){
     var instance = Object.create(proto, {
