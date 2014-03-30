@@ -10,7 +10,7 @@
 
   <script>
   require(['../src/js/content-edible','../src/js/edible-toolbar'], function(edible, toolbar){
-    var ce = edible(document.querySelector('.content-edible'));
+    var ce = window.edible = edible(document.querySelector('.content-edible'));
     var toolbar = toolbar(document.querySelector('.edible-toolbar'), ce);
 
   });

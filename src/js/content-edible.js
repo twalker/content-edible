@@ -1,23 +1,40 @@
 /**
- * content-edible
- * https://github.com/mindmup/bootstrap-wysiwyg
+ * edible adds contentEditable behavior to an element
+ *
+ * uses a subset of contenteditable API:
+ *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
+ *
+ * inspired by
+ *   https://github.com/mindmup/bootstrap-wysiwyg
+ *
  * execCmd:
  *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
+ *
+ * TODO:
+ *   - clean and document
  */
 define([], function(){
 
   var proto = {
     cleanHtml: function(){
-
+      console.log('not yet implemented');
     },
 
-    insert: function(){},
+    getHtml: function(){
+      return this.el.innerHTML;
+    },
+
+    replaceHtml: function(html){
+      this.restoreSelection();
+      this.cmd('selectAll');
+      this.cmd('insertHTML', html);
+      window.getSelection().removeAllRanges();
+    },
 
     cmd: function(cmd, val){
-      console.log('TODO: command', cmd, val);
-      //console.log('range', this.getCurrentRange());
-
-      document.execCommand(cmd, false, val || '')
+      var success = document.execCommand(cmd, false, val || null);
+      console.log('command', cmd, val, success ? 'succeeded': 'failed');
+      return success;
     },
 
     getCurrentRange: function (){
@@ -27,8 +44,22 @@ define([], function(){
       }
     },
 
+    closestElement: function(){
+      var range = this.getCurrentRange(),
+        parent;
+      if(range){
+        parent = range.commonAncestorContainer;
+        if(parent.nodeType !== 1) parent = parent.parentNode;
+      }
+      return parent;
+    },
+
     enable: function(enable){
       this.el.setAttribute('contenteditable', enable);
+    },
+
+    focus: function(){
+      this.el.focus();
     },
 
     saveSelection: function(){
@@ -48,7 +79,7 @@ define([], function(){
         selection.addRange(this.selectedRange);
       }
     },
-
+    /*
     markSelection: function(input, color){
       this.restoreSelection();
       if (document.queryCommandSupported('hiliteColor')) {
@@ -57,6 +88,7 @@ define([], function(){
       this.saveSelection();
       //input.data(options.selectionMarker, color);
     },
+    */
 
     // hierarchy of parent nodes of selection.
     parents: function(){
@@ -67,8 +99,7 @@ define([], function(){
         var parent = current.commonAncestorContainer;
         // ensure we're starting with an ELEMENT_NODE
         if(parent.nodeType !== 1) parent = parent.parentNode
-        //console.log('parent', parent)
-        while(parent && parent !== this.el){
+        while(parent && parent !== this.el && this.el.contains(parent)){
           parents.push(parent);
           parent = parent.parentNode;
         }
@@ -76,20 +107,42 @@ define([], function(){
       return parents;
     },
 
-    selectElement: function(parent){
-      //console.log('select parent', parent)
+    selectElement: function(el){
       var range = document.createRange();
-      range.selectNode(parent);
+      range.selectNode(el);
       var sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
       this.saveSelection();
     }
-
-
   };
 
-  // constructor
+  // Convenience methods for the absent minded
+  ['bold', 'italic', 'copy', 'cut', 'paste', 'delete', 'forwardDelete',
+  'fontName', 'fontSize', 'foreColor', 'hiliteColor', 'backColor',
+  'justifyCenter', 'justifyFull', 'justifyLeft', 'justifyRight',
+  'strikeThrough', 'subscript', 'superscript', 'underline',
+  'removeFormat', 'heading', 'formatBlock', 'indent', 'outdent', 'createLink', 'unlink', 'insertBrOnReturn', 'insertHorizontalRule', 'insertImage', 'insertOrderedList',
+  'insertUnorderedList', 'insertParagraph', 'insertText', 'insertHTML',
+  'undo', 'redo', 'selectAll'].forEach(function(command){
+    this[command] = this.cmd.bind(this, command);
+  }, proto);
+
+  // Convenience format block, or optionally insert a tag with text.
+  'p pre h4 h3 h2 h1'
+    .split(' ').forEach(function(tag){
+      // format methods. e.g. formatH1()
+      var capTag = tag.charAt(0).toUpperCase() + tag.slice(1)
+      this['format' + capTag] = this.cmd.bind(this, 'formatBlock', tag);
+      // insert methods. e.g. insertH1('hello world')
+      this['insert' + capTag] = function insertTag(text){
+        var el = document.createElement(tag);
+        el.textContent = text;
+        return this.cmd('insertHTML', el.outerHTML);
+      };
+    }, proto);
+
+  // instance factory
   var edible = function edible(el){
     var instance = Object.create(proto, {
       el: {value: el}

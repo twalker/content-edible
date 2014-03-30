@@ -15,6 +15,7 @@ define([], function(){
 
       });
     },
+
     updateParents: function(){
       var edible = this.edible;
       console.log('parents', edible.parents());
