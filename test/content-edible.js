@@ -82,7 +82,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
         var edible = contentEdible(elTarget);
         elTarget.focus();
         edible.cmd('insertText', 'foobar');
-        assert.include(elTarget.innerText, 'foobar');
+        assert.include(elTarget.textContent, 'foobar');
       });
     });
 
@@ -105,7 +105,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
 
         elTarget.focus();
         edible.insertText('foobar');
-        assert.include(elTarget.innerText, 'foobar');
+        assert.include(elTarget.textContent, 'foobar');
       });
     });
 
