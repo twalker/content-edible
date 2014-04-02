@@ -96,7 +96,13 @@
       return this;
     },
 
+    // whether or not there is a selection
+    hasSelection: function(){
+      return (this.selectedRange !== undefined) && !this.selectedRange.collapsed;
+    },
+
     // find the closest parent element of user selection
+    // TODO: find a way to normalize Firefox w/tag selection
     closestElement: function(){
       var range = this.getCurrentRange(),
         parent;
