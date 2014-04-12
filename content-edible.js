@@ -22,6 +22,30 @@
   }
 }(this, function(){
 
+  // Workaround helpers for browser differences in selecting a single node. See Tim Down's answer at:
+  // http://stackoverflow.com/questions/15867542/range-object-get-selection-parent-node-chrome-vs-firefox
+  var rangeSelectsSingleNode = function rangeSelectsSingleNode(range) {
+    var startNode = range.startContainer;
+    return startNode === range.endContainer &&
+     startNode.hasChildNodes() &&
+     range.endOffset === range.startOffset + 1;
+  }
+
+  var getSelectedElement = function getSelectedElement(range){
+    var selectedElement;
+    if (rangeSelectsSingleNode(range)) {
+      // Selection encompasses a single element
+      selectedElement = range.startContainer.childNodes[range.startOffset];
+    } else if (range.startContainer.nodeType === 3) {
+      // Selection range starts inside a text node, so get its parent
+      selectedElement = range.startContainer.parentNode;
+    } else {
+      // Selection starts inside an element
+      selectedElement = range.startContainer;
+    }
+    return selectedElement;
+  }
+
   var proto = {
 
     // calls to the browser's execCommand, returns success or failure.
@@ -76,14 +100,15 @@
 
     // save the user selection
     saveSelection: function(){
-      this.selectedRange = this.getCurrentRange();
+      //console.log('saveSelection');
+      this.savedRange = this.getCurrentRange();
       return this;
     },
 
     // restore the user selection
     restoreSelection: function(){
       var selection = window.getSelection();
-      if (this.selectedRange) {
+      if (this.savedRange) {
         try {
           selection.removeAllRanges();
         } catch (ex) {
@@ -91,26 +116,25 @@
           document.selection.empty();
         }
 
-        selection.addRange(this.selectedRange);
+        selection.addRange(this.savedRange);
       }
       return this;
     },
 
     // whether or not there is a selection
     hasSelection: function(){
-      return (this.selectedRange !== undefined) && !this.selectedRange.collapsed;
+      return (this.savedRange !== undefined) && !this.savedRange.collapsed;
     },
 
-    // find the closest parent element of user selection
-    // TODO: find a way to normalize Firefox w/tag selection
+    // find the closest selected element of current selection.
     closestElement: function(){
-      var range = this.getCurrentRange(),
-        parent;
-      if(range){
-        parent = range.commonAncestorContainer;
-        if(parent.nodeType !== 1) parent = parent.parentNode;
+      var el, range = this.getCurrentRange();
+      if(range) {
+        // normalize Firefox & Chrome tag selection
+        el = getSelectedElement(range);
+        if(el.nodeType !== 1) el = range.commonAncestorContainer;
       }
-      return parent;
+      return el;
     },
 
     // hierarchy of parent nodes of selection.

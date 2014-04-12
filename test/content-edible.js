@@ -19,6 +19,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
   var assert = chai.assert
   mocha.setup('bdd');
 
+
   function createFixture(){
     var el = document.createElement('section');
     el.setAttribute('id', 'fixture');
@@ -221,6 +222,5 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
     });
 
   });
-
   mocha.run();
 });
