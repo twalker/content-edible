@@ -9,18 +9,19 @@ A lightly sweetened api for contentEditable's execCommand.
 - Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
 - Basic functionality to be controlled by a DIY WYSIWYG toolbar
 - No dependencies
-- Under 5k
+- Under 200 lines (5k ish uncompressed)
 
 ### Why?
 
 There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I wanted a small module to make execCommand more memorable, and control it elsewhere.
-`content-edible` calls native browser execCommands with flagrant disregard for implementation descrepencies between browsers.
+`content-edible` calls native browser document.execCommands with flagrant disregard for implementation descrepencies between browsers.
 
 ## Install
 
+content-edible can be used with AMD, or as a `contentEdible` global.
+
 TODO: register with bower/component
 
-content-edible can be used with AMD, or as a `contentEdible` global.
 
 ## Example
 
@@ -55,13 +56,13 @@ el.addEventListener('input', function(e){
 ## API
 
 - enable(enabled)
-- cmd(value)
+- cmd(cmd, value)
 - focus()
 - saveSelection()
 - restoreSelection()
 - undo()
 - redo()
-- ... see unit tests or source for more.
+- ... [see unit tests](test/content-edible.js) or [source](content-edible.js) for more.
 
 ### Things to do when implementing a toolbar that uses edible:
 
@@ -71,7 +72,8 @@ el.addEventListener('input', function(e){
 ---------------------
 TODO:
 
-- finish unit tests. manually make range selections for selection related tests?
+- finish unit tests. how to test range related tests?
+- register w/bower once unit tests pass in FF and Chrome. 
 
 
 ---------------------

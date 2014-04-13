@@ -1,14 +1,9 @@
 /**
  * content-edible
- * https://github.com/twalker/content-edible
- *
  * A lightly sweetened api for contentEditable's execCommand.
  *
- * uses a subset of contenteditable API:
- *   https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla
- *
- * inspired by
- *   https://github.com/mindmup/bootstrap-wysiwyg
+ * source: https://github.com/twalker/content-edible
+ * inspired by: https://github.com/mindmup/bootstrap-wysiwyg
  *
  */
 // UMD's amdWeb pattern
@@ -140,12 +135,12 @@
     // hierarchy of parent nodes of selection.
     parents: function(){
       var current = this.getCurrentRange();
-
       var parents = [];
       if(current){
-        var parent = current.commonAncestorContainer;
+        //var parent = current.commonAncestorContainer;
+        var parent = getSelectedElement(current);
         // ensure we're starting with an ELEMENT_NODE
-        if(parent.nodeType !== 1) parent = parent.parentNode
+        //if(parent.nodeType !== 1) parent = parent.parentNode
         while(parent && parent !== this.el && this.el.contains(parent)){
           parents.push(parent);
           parent = parent.parentNode;
