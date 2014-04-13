@@ -9,7 +9,7 @@ A lightly sweetened api for contentEditable's execCommand.
 - Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
 - Basic functionality to be controlled by a DIY WYSIWYG toolbar
 - No dependencies
-- Under 200 lines (5k ish uncompressed)
+- ~200 lines (5k-ish uncompressed)
 
 ### Why?
 
@@ -56,6 +56,11 @@ el.addEventListener('input', function(e){
 ## API
 
 - enable(enabled)
+- bold()
+- createLink(url)
+- formatBlock(tagName)
+- insertText(text)
+- insertHTML(html)
 - cmd(cmd, value)
 - focus()
 - saveSelection()
@@ -66,8 +71,8 @@ el.addEventListener('input', function(e){
 
 ### Things to do when implementing a toolbar that uses edible:
 
-- Save/restore user selections when focus is lost.
-- `focus` on editable element before calling commands.
+- `saveSelection()` when focus is lost.
+- `focus()` and/or `restoreSelection()` on editable element before calling commands.
 
 ## Contributing
 
