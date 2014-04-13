@@ -211,7 +211,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    describe('.selectElement(el)', function(){
+    describe.skip('.selectElement(el)', function(){
       it('should select a specified element', function(){
         var elTarget = getFixture();
         var edible = contentEdible(elTarget).focus();

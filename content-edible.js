@@ -140,12 +140,12 @@
     // hierarchy of parent nodes of selection.
     parents: function(){
       var current = this.getCurrentRange();
-
       var parents = [];
       if(current){
-        var parent = current.commonAncestorContainer;
+        //var parent = current.commonAncestorContainer;
+        var parent = getSelectedElement(current);
         // ensure we're starting with an ELEMENT_NODE
-        if(parent.nodeType !== 1) parent = parent.parentNode
+        //if(parent.nodeType !== 1) parent = parent.parentNode
         while(parent && parent !== this.el && this.el.contains(parent)){
           parents.push(parent);
           parent = parent.parentNode;
