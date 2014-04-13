@@ -29,6 +29,11 @@ TODO:
 var el = document.querySelector('.user-editable');
 var edible = contentEdible(el);
 
+// save the selections before losing focus
+el.addEventListener('mouseout', function(e){
+  edible.saveSelection();
+});
+
 // call command methods, typically in event handlers for a toolbar.
 btnBold.addEventListener('click', function(e){
   e.preventDefault();
@@ -69,9 +74,9 @@ el.addEventListener('input', function(e){
 - redo()
 - ... [see unit tests](test/content-edible.js) or [source](content-edible.js) for more.
 
-### Things to do when implementing a toolbar that uses edible:
+### Things to remember when implementing a toolbar for edible:
 
-- `saveSelection()` when focus is lost.
+- `saveSelection()` before focus leaves the editable element.
 - `focus()` and/or `restoreSelection()` on editable element before calling commands.
 
 ## Contributing
