@@ -13,7 +13,7 @@ A lightly sweetened api for contentEditable's execCommand.
 
 ### Why?
 
-There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I wanted a small module to make execCommand more memorable, and control it elsewhere.
+There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I decided on a small module to make execCommand more memorable, and control it elsewhere.
 `content-edible` calls native browser document.execCommands with flagrant disregard for implementation descrepencies between browsers.
 
 ## Install
