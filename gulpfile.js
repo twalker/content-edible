@@ -14,7 +14,7 @@ gulp.task('js', function() {
 
 // Increment packages by patch point
 gulp.task('bump', function(){
-  gulp.src(['./package.json'])
+  gulp.src(['./package.json', './bower.json'])
     .pipe(bump())
     .pipe(gulp.dest('./'));
 });

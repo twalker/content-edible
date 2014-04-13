@@ -20,8 +20,8 @@ There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg
 
 content-edible can be used with AMD, or as a `contentEdible` global.
 
-TODO: register with bower/component
-
+TODO: 
+- register with bower/component
 
 ## Example
 
@@ -68,6 +68,11 @@ el.addEventListener('input', function(e){
 
 - Save/restore user selections when focus is lost.
 - `focus` on editable element before calling commands.
+
+## Contributing
+
+TODO
+
 
 ---------------------
 TODO:

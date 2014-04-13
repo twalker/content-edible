@@ -1,6 +1,17 @@
 {
   "name": "content-edible",
   "version": "0.0.1",
+  "main": "content-edible.js",
+  "license": "MIT"
+  "keywords": ["wysiwyg", "content-editable"],
+  "ignore": [
+    ".jshintrc",
+    "test",
+    "node_modules",
+    "bower_components",
+    ".bowerrc",
+    "gulpfile.js"
+  ],
   "dependencies": {},
   "devDependencies": {
     "requirejs": "2.1.11",

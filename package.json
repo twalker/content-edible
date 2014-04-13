@@ -1,7 +1,6 @@
 {
   "name": "content-edible",
   "version": "0.0.1",
-  "private": true,
   "dependencies": {},
   "devDependencies": {
     "stylus": "~0.42.3",
