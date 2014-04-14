@@ -2,7 +2,7 @@
   "name": "content-edible",
   "version": "0.0.1",
   "main": "content-edible.js",
-  "license": "MIT"
+  "license": "MIT",
   "keywords": ["wysiwyg", "content-editable"],
   "ignore": [
     ".jshintrc",
