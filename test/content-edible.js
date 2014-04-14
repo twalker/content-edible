@@ -19,11 +19,10 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
   var assert = chai.assert
   mocha.setup('bdd');
 
-
   function createFixture(){
     var el = document.createElement('section');
     el.setAttribute('id', 'fixture');
-    el.innerHTML = '<h1>hello</h1><p>world<i>!</i></p>';
+    el.innerHTML = '<h1>hello</h1><p><a href="#">world</a><i>!</i></p>';
     document.body.appendChild(el);
   }
 
@@ -139,12 +138,6 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    describe.skip('.focus()', function(){
-      it('should focus on the element', function(){
-        assert.isTrue(true)
-      });
-    });
-
     describe('.getHtml()', function(){
       it('should get the innerHTML of the element', function(){
         var elTarget = getFixture();
@@ -161,6 +154,54 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
         var html = '<h2>replaced!</h2>';
         edible.replaceHtml(html)
         assert.equal(edible.getHtml(), html);
+      });
+    });
+
+    describe('.closestElement()', function(){
+      it('should return the closest container element for the current range', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        edible.selectElement(elTarget.querySelector('i'));
+        assert.equal(edible.closestElement(), elTarget.querySelector('i'));
+      });
+    });
+
+    describe('.parents()', function(){
+      it('should provide an ancestory of parent nodes for current range', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        // HACK: selecting text to workaround FF and Chrome diferences in selecting an element.
+        edible.selectElement(elTarget.querySelector('i').firstChild);
+
+        assert.isArray(edible.parents());
+        assert.deepEqual(edible.parents(), [elTarget.querySelector('i'), elTarget.querySelector('p')]);
+      });
+    });
+
+    describe('.hasSelection()', function(){
+      it('should return whether or not there is a selection in the element', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        assert.isFalse(edible.hasSelection());
+        edible.selectElement(elTarget.querySelector('a'));
+        assert.isTrue(edible.hasSelection());
+      });
+    });
+
+    describe('.selectElement(el)', function(){
+      it('should select a specified element', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        var anchor = elTarget.querySelector('a');
+
+        edible.selectElement(anchor);
+        assert.equal(anchor, edible.closestElement());
+      });
+    });
+
+    describe.skip('.focus()', function(){
+      it('should focus on the element', function(){
+        assert.isTrue(true)
       });
     });
 
@@ -188,36 +229,6 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
         var edible = contentEdible(elTarget).focus();
 
         assert.isTrue(true);
-      });
-    });
-
-    describe('.closestElement()', function(){
-      it('should return the closest container element for the current range', function(){
-        var elTarget = getFixture();
-        var edible = contentEdible(elTarget).focus();
-        edible.selectElement(elTarget.querySelector('i'));
-        assert.equal(edible.closestElement(), elTarget.querySelector('i'));
-      });
-    });
-
-    describe('.parents()', function(){
-      it('should provide an ancestory of parent nodes for current range', function(){
-        var elTarget = getFixture();
-        var edible = contentEdible(elTarget).focus();
-        edible.selectElement(elTarget.querySelector('i'));
-
-        assert.isArray(edible.parents());
-        assert.deepEqual(edible.parents(), [elTarget.querySelector('i'), elTarget.querySelector('p')]);
-      });
-    });
-
-    describe.skip('.selectElement(el)', function(){
-      it('should select a specified element', function(){
-        var elTarget = getFixture();
-        var edible = contentEdible(elTarget).focus();
-        edible.selectElement(elTarget.querySelector('h1'));
-
-        assert.equal(elTarget, edible.closestElement());
       });
     });
 

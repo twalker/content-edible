@@ -17,7 +17,7 @@
   }
 }(this, function(){
 
-  // Workaround helpers for browser differences in selecting a single node. See Tim Down's answer at:
+  // Helpers for working around browser differences in selecting a single node. See Tim Down's answer at:
   // http://stackoverflow.com/questions/15867542/range-object-get-selection-parent-node-chrome-vs-firefox
   var rangeSelectsSingleNode = function rangeSelectsSingleNode(range) {
     var startNode = range.startContainer;
@@ -132,15 +132,15 @@
       return el;
     },
 
-    // hierarchy of parent nodes of selection.
+    // gets the selections element hierarchy
     parents: function(){
       var current = this.getCurrentRange();
+
       var parents = [];
       if(current){
-        //var parent = current.commonAncestorContainer;
-        var parent = getSelectedElement(current);
+        var parent = current.commonAncestorContainer;
         // ensure we're starting with an ELEMENT_NODE
-        //if(parent.nodeType !== 1) parent = parent.parentNode
+        if(parent.nodeType !== 1) parent = parent.parentNode
         while(parent && parent !== this.el && this.el.contains(parent)){
           parents.push(parent);
           parent = parent.parentNode;
@@ -151,10 +151,10 @@
 
     // selects an element
     selectElement: function(el){
-      var range = document.createRange();
-      range.selectNode(el);
       var sel = window.getSelection();
       sel.removeAllRanges();
+      var range = document.createRange();
+      range.selectNode(el);
       sel.addRange(range);
       this.saveSelection();
       return this;

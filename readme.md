@@ -1,27 +1,27 @@
 content-edible
 ==============
 
-A lightly sweetened api for contentEditable's execCommand.
+A lightly sweetened api for document.execCommand in contentEditables.
 
 
 ### Goals:
 
-- Expose a more discoverable api for contentEditable's [execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla)
+- Expose a more discoverable [document.execCommand](https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla) api for use in contentEditables.
 - Basic functionality to be controlled by a DIY WYSIWYG toolbar
 - No dependencies
 - ~200 lines (5k-ish uncompressed)
 
 ### Why?
 
-There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I decided on a small module to make execCommand more memorable, and control it elsewhere.
-`content-edible` calls native browser document.execCommands with flagrant disregard for implementation descrepencies between browsers.
+There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I decided on a small module to make commands more memorable, and control it elsewhere.
+`content-edible` calls native browser `document.execCommand` commands with little concern for the descrepencies between browser implementations (Tested in current Firefox and Chrome).
+
 
 ## Install
 
 content-edible can be used with AMD, or as a `contentEdible` global.
 
-TODO: 
-- register with bower/component
+TODO: instructions once registered w/bower
 
 ## Example
 
@@ -79,16 +79,13 @@ el.addEventListener('input', function(e){
 - `saveSelection()` before focus leaves the editable element.
 - `focus()` and/or `restoreSelection()` on editable element before calling commands.
 
-## Contributing
-
-TODO
 
 
 ---------------------
 TODO:
 
-- finish unit tests. how to test range related tests?
 - register w/bower once unit tests pass in FF and Chrome. 
+- finish selection-based unit tests. How to test range related tests?
 
 
 ---------------------
