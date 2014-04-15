@@ -21,7 +21,7 @@ There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg
 
 content-edible can be used with AMD, or as a `contentEdible` global.
 
-TODO: instructions once registered w/bower
+`bower install content-edible`
 
 ## Example
 
@@ -84,7 +84,6 @@ el.addEventListener('input', function(e){
 ---------------------
 TODO:
 
-- register w/bower once unit tests pass in FF and Chrome. 
 - finish selection-based unit tests. How to test range related tests?
 
 
