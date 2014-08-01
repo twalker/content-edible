@@ -157,12 +157,25 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
       });
     });
 
-    describe('.closestElement()', function(){
+    describe('.getElement()', function(){
       it('should return the closest container element for the current range', function(){
         var elTarget = getFixture();
         var edible = contentEdible(elTarget).focus();
         edible.selectElement(elTarget.querySelector('i'));
-        assert.equal(edible.closestElement(), elTarget.querySelector('i'));
+        assert.equal(edible.getElement(), elTarget.querySelector('i'));
+      });
+    });
+
+    describe('.closest(selector)', function(){
+      //'<h1>hello</h1><p><a href="#">world</a><i>!</i></p>'
+      it('should return the closest element within the selection matching the selector', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        edible.selectElement(elTarget.querySelector('a'));
+
+        assert.equal(edible.closest('p'), elTarget.querySelector('p'));
+        assert.equal(edible.closest('a'), elTarget.querySelector('a'));
+
       });
     });
 
@@ -195,7 +208,7 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
         var anchor = elTarget.querySelector('a');
 
         edible.selectElement(anchor);
-        assert.equal(anchor, edible.closestElement());
+        assert.equal(anchor, edible.getElement());
       });
     });
 

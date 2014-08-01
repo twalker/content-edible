@@ -121,13 +121,25 @@
       return (this.savedRange !== undefined) && !this.savedRange.collapsed;
     },
 
-    // find the closest selected element of current selection.
-    closestElement: function(){
+    // get the nearest container element for the current range.
+   getElement: function(){
       var el, range = this.getCurrentRange();
       if(range) {
         // normalize Firefox & Chrome tag selection
         el = getSelectedElement(range);
         if(el.nodeType !== 1) el = range.commonAncestorContainer;
+      }
+      return el;
+    },
+
+    // find the closest element of selection for selector.
+    closest: function(selector){
+      var el = this.getElement();
+      if(!el) return;
+      var matches = el.matches  || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+      while(el && el !== this.el){
+        if(matches.call(el, selector)) break;
+        el = el.parentNode;
       }
       return el;
     },
