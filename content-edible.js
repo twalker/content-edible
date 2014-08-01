@@ -137,11 +137,11 @@
       var el = this.getElement();
       if(!el) return;
       var matches = el.matches  || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-      while(el && el !== this.el){
+      while(el && el !== this.el && this.el.contains(el)){
         if(matches.call(el, selector)) break;
         el = el.parentNode;
       }
-      return el;
+      return (el !== this.el) ? el : undefined;
     },
 
     // gets the selections element hierarchy
