@@ -177,6 +177,15 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
         assert.equal(edible.closest('a'), elTarget.querySelector('a'));
 
       });
+
+      it('should return the undefined when nothing matches the selector', function(){
+        var elTarget = getFixture();
+        var edible = contentEdible(elTarget).focus();
+        edible.selectElement(elTarget.querySelector('a'));
+
+        assert.equal(edible.closest('p.foo'), undefined);
+      });
+
     });
 
     describe('.parents()', function(){

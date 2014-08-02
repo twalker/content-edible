@@ -1,6 +1,6 @@
 {
   "name": "content-edible",
-  "version": "0.1.2",
+  "version": "0.1.41",
   "main": "content-edible.js",
   "license": "MIT",
   "keywords": [
@@ -18,7 +18,7 @@
   "dependencies": {},
   "devDependencies": {
     "requirejs": "2.1.11",
-    "mocha": "1.18.2",
+    "mocha": "1.21.3",
     "chai": "1.9.1"
   }
 }
