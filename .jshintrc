@@ -1,5 +1,5 @@
 {
-	"maxcomplexity": 5,
+	"maxcomplexity": 8,
   "asi": true,
 	"strict": false,
 	"maxstatements": 15,
