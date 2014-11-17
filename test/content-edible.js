@@ -19,6 +19,8 @@ require(['mocha', 'chai', 'contentEdible'], function(mocha, chai, contentEdible)
   var assert = chai.assert
   mocha.setup('bdd');
 
+  console.log('6to5 WORKAROUND', contentEdible = contentEdible.default)
+
   function createFixture(){
     var el = document.createElement('section');
     el.setAttribute('id', 'fixture');

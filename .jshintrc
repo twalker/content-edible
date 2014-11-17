@@ -1,5 +1,6 @@
 {
 	"maxcomplexity": 8,
+	"esnext": true,
   "asi": true,
 	"strict": false,
 	"maxstatements": 15,
