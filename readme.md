@@ -14,12 +14,12 @@ A lightly sweetened api for document.execCommand in contentEditables.
 ### Why?
 
 There are many great wysiwyg editors out there, from the slim [bootstrap-wysiwyg](http://mindmup.github.io/bootstrap-wysiwyg/) to the full-featured [Aloha Editor](http://www.aloha-editor.org/). I found most either were not quite what I needed, or far more than I needed. I decided on a small module to make commands more memorable, and control it elsewhere.
-`content-edible` calls native browser `document.execCommand` commands with little concern for the descrepencies between browser implementations (Tested in current Firefox and Chrome).
+`content-edible` calls native browser `document.execCommand` commands with little concern for the discrepancies between browser implementations (Tested in current Firefox and Chrome).
 
 
 ## Install
 
-content-edible can be used with AMD, or as a `contentEdible` global.
+content-edible can be used with AMD, or CommonJS.
 
 `bower install content-edible`
 
