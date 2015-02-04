@@ -1,6 +1,7 @@
 {
   "name": "content-edible",
   "version": "0.2.0",
+  "main": "content-edible.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/twalker/content-edible/.git"
