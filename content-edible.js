@@ -7,6 +7,7 @@
 })(function (exports) {
   "use strict";
 
+  exports.create = create;
   /**
    * content-edible
    * A lightly sweetened api for contentEditable's execCommand.

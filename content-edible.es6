@@ -175,11 +175,12 @@ var proto = {
   this[command] = this.cmd.bind(this, command);
 }, proto);
 
-// return edible instance factory
-export default function create(el){
+export function create(el){
   var instance = Object.create(proto, {
     el: {value: el}
   });
   instance.enable(true);
   return instance;
 }
+// return edible instance factory
+export default create;
